@@ -1,0 +1,215 @@
+---
+title: "Does changing the voting system change the results?"
+author: "Mark Taylor"
+date: "23/05/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(gganimate)
+
+# load data
+eurovision_2021 <- 
+  read_csv("eurovision_2021_clean_with_points.csv")
+
+
+numbers_26 <- 
+  dexp(c(1:26),
+       rate = .2) 
+
+
+numbers_25 <- 
+  dexp(c(1:25),
+       rate = .2) 
+
+
+numbers_25 <- 
+  numbers_25 %>% 
+  as_tibble() %>% 
+  rownames_to_column() %>% 
+  mutate(value_total = sum(value)) %>% 
+  mutate(value = value * (58/value_total)) %>% 
+  select(-value_total) 
+
+numbers_26 <- 
+  numbers_26 %>% 
+  as_tibble() %>% 
+  rownames_to_column() %>% 
+  mutate(value_total = sum(value)) %>% 
+  mutate(value = value * (58/value_total)) %>% 
+  select(-value_total) 
+
+
+negexp_scoring <- 
+  eurovision_2021 %>% 
+  select(-c(juror_a_ranking:juror_e_ranking,
+            jury_points, televote_points)) %>% 
+  group_by(points_from) %>% 
+  mutate(total_ranked = 
+           n()) %>% 
+  filter(total_ranked == 26) %>% 
+  full_join(numbers_26 %>% 
+              rename(televote_points_negexp = value) %>% 
+              rename(televote_rank = rowname) %>% 
+              mutate(televote_rank = as.numeric(televote_rank)))%>% 
+  full_join(numbers_26 %>% 
+              rename(jury_points_negexp = value) %>% 
+              rename(jury_rank = rowname) %>% 
+              mutate(jury_rank = as.numeric(jury_rank))) %>% 
+  bind_rows(eurovision_2021 %>% 
+              select(-c(juror_a_ranking:juror_e_ranking,
+                        jury_points, televote_points)) %>% 
+              group_by(points_from) %>% 
+              mutate(total_ranked = 
+                       n()) %>% 
+              filter(total_ranked == 25) %>% 
+              full_join(numbers_25 %>% 
+                          rename(televote_points_negexp = value) %>% 
+                          rename(televote_rank = rowname) %>% 
+                          mutate(televote_rank = as.numeric(televote_rank)))%>% 
+              full_join(numbers_25 %>% 
+                          rename(jury_points_negexp = value) %>% 
+                          rename(jury_rank = rowname) %>% 
+                          mutate(jury_rank = as.numeric(jury_rank))))
+
+
+negexp_plot_data <- 
+  negexp_scoring %>% 
+  group_by(points_to) %>% 
+  summarise(total_televote_negexp = 
+              sum(televote_points_negexp),
+            total_jury_negexp = 
+              sum(jury_points_negexp)) %>% 
+  mutate(total_points_negexp = 
+           total_televote_negexp + total_jury_negexp) %>% 
+  inner_join(eurovision_2021 %>% 
+                group_by(points_to) %>% 
+                summarise(total_televote = 
+                            sum(televote_points),
+                          total_jury = 
+                            sum(jury_points))) %>% 
+  mutate(total_points = 
+           total_televote + 
+           total_jury) %>% 
+  select(points_to, total_points, total_points_negexp) %>% 
+  rename(Original = 
+           total_points,
+         Alternative = 
+           total_points_negexp) %>% 
+  mutate(original_rank = 
+           rank(Original,
+                ties.method = c("first"))) %>% 
+  mutate(negexp_rank = 
+           rank(Alternative,
+                ties.method = c("first"))) %>% 
+  pivot_longer(original_rank:negexp_rank) %>% 
+  mutate(name = fct_relevel(name,
+                            "original_rank",
+                            "negexp_rank")) %>% 
+  mutate(name = fct_recode(name,
+                           "Original" = 
+                             "original_rank",
+                           "Negative exponential" = 
+                             "negexp_rank"))
+
+```
+
+## The negative exponential distribution
+
+A few years ago, the way that jury votes were allocated for Eurovision changed. The principle is that jury votes should reward enthusiasm more than they punish dislikes, and so the difference between coming 1st and 10th should be greater than the difference between coming 11th and 20th. You can read more about the implementation [here](https://eurovision.tv/story/subtle-significant-ebu-changes-weight-individual-jury-rankings), and you can read a summary with some great maths by the good peopleof ESC Insight [here](https://escinsight.com/2018/04/27/eurovision-song-contest-2018-important-jury-scoring-change/).
+
+But what if national jury and televote points were rewarded in the same way? At the moment, there's a severe cliff edge between 10th and 11th place. This means that entries that do OK but not brilliantly in every country can end up with nul points, and can be beaten by an entry that manages to squeeze into tenth place among one jury but gets slammed everywhere else. Of course, it might not be very likely that this would occur. That's why I thought I'd have a look.
+
+Here's an illustration of how the points would be distributed for each national jury or televote if this were implemented. (For this illustration, I've chosen a rate of 0.2) The current situation is illustrated in blue, while the alternative situation is illustrated in pink.
+
+```{r}
+
+numbers_26 %>% 
+  mutate(rowname = as.numeric(rowname)) %>% 
+  mutate(original = c(12, 10, 8, 7, 6, 5, 4, 3, 2, 1,
+                      rep(0, 16))) %>%
+  rename(negative_exponential = value) %>% 
+  pivot_longer(negative_exponential:original) %>% 
+  ggplot() +
+  aes(x = rowname,
+      y = value,
+      colour = name) +
+  geom_point() +
+  theme_minimal() +
+  scale_y_continuous(breaks = c(0, 2, 4, 6, 8, 10, 12)) +
+  labs(x = "Ranking",
+       y = "Points",
+       colour = "") +
+  theme(legend.position = "bottom")
+```
+
+How would this affect the results? Are there any entries sitting on a big pile of eleventh places? Here's an illustration of how the points would change if we switched system.
+
+```{r, message  = FALSE}
+
+negexp_scoring %>% 
+  group_by(points_to) %>% 
+  summarise(total_televote_negexp = 
+              sum(televote_points_negexp),
+            total_jury_negexp = 
+              sum(jury_points_negexp)) %>% 
+  mutate(total_points_negexp = 
+           total_televote_negexp + total_jury_negexp) %>% 
+  inner_join(eurovision_2021 %>% 
+               group_by(points_to) %>% 
+               summarise(total_televote = 
+                           sum(televote_points),
+                         total_jury = 
+                           sum(jury_points))) %>% 
+  mutate(total_points = 
+           total_televote + 
+           total_jury) %>% 
+  select(points_to, total_points, total_points_negexp) %>% 
+  ggplot() +
+  aes(x = total_points,
+      y = total_points_negexp) +
+  geom_point() +
+  geom_abline(intercept = 0,
+              slope = 1) +
+  theme_minimal() +
+  labs(x = "Points on the night",
+       y = "Points under the alternative scoring system")
+```
+
+You can see that the acts that scored really highly on the night - France and Italy - would have scored fewer points under the alternative system. But you can also see it wouldn't have made much difference to their ranking.
+
+Speaking of, how would the rankings have changed?
+
+```{r, message = FALSE}
+ggplot(negexp_plot_data) +
+  aes(x = name,
+      y = value,
+      group = points_to) +
+  geom_point() +
+  geom_line() +
+  geom_text(data = subset(negexp_plot_data,
+                          name == "Original"),
+            aes(label = points_to),
+            hjust = 1,
+            position = position_nudge(x = -.05, y = 0)) +
+  geom_text(data = subset(negexp_plot_data,
+                          name == "Negative exponential"),
+            aes(label = points_to),
+            hjust = 0,
+            position = position_nudge(x = .05, y = 0)) +
+  theme_minimal() +
+  scale_x_discrete(position = "top", expand = c(.5, .5)) +
+  theme(panel.grid = element_blank()) +
+  theme(axis.text = element_blank()) +
+  labs(x = "",
+       y = "",
+       title = "How does the ranking change with negative exponentials?",
+       caption = "@markrt")
+```
+
+Very little. The really interesting one here is Germany -- as reported elsewhere, while Germany didn't get any points in the televote they actually did OK in the televote rankings internationally, with no country putting them in the bottom two, and under an alternative system they'd have climbed above Spain. Bulgaria, Sweden, and Cyprus would have gained a place each, at the expense of Greece, Moldova, and Serbia respectively.
+
+No surprise that the UK is still last...
