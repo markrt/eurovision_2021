@@ -1,0 +1,40 @@
+artist,country,track.name,time_signature,tempo,key_mode,key_name,mode_name,danceability,energy,key,loudness,mode,speechiness,acousticness,instrumentalness,liveness,valence,track.popularity
+Måneskin,Italy,ZITTI E BUONI,4,103.024,E minor,E,minor,0.62,0.944,4,-3.082,0,0.0863,0.0014,0,0.733,0.592,79
+Destiny,Malta,Je me casse - Eurovision Official Entry,4,111.973,G# minor,G#,minor,0.767,0.871,8,-4.494,0,0.1,0.153,1.27e-6,0.277,0.79,45
+Elena Tsagrinou,Cyprus,El Diablo,4,113.994,A minor,A,minor,0.66,0.664,9,-7.78,0,0.134,0.00395,0,0.832,0.621,73
+Barbara Pravi,France,Voilà,4,135.379,D minor,D,minor,0.447,0.337,2,-8.665,0,0.0631,0.773,0,0.298,0.603,74
+THE ROOP,Lithuania,Discoteque,4,115.004,F major,F,major,0.826,0.799,5,-6.12,1,0.0594,0.0477,0.00206,0.125,0.628,71
+Tusse,Sweden,Voices,4,90.015,A# minor,A#,minor,0.503,0.759,10,-5.222,0,0.0423,0.00237,1.06e-6,0.13,0.396,75
+Daði Freyr,Iceland,10 Years,4,123.038,D minor,D,minor,0.798,0.621,2,-6.916,0,0.0391,0.0141,1.48e-4,0.0926,0.443,73
+Senhit ft. Flo Rida,San Marino,Adrenalina,4,104.084,A# minor,A#,minor,0.665,0.886,10,-5.773,0,0.082,0.00319,1.22e-6,0.387,0.529,68
+Eden Alene,Israel,Set Me Free,4,107.02,C# minor,C#,minor,0.752,0.664,1,-7.392,0,0.0775,0.28,0,0.102,0.468,69
+Gjon's Tears,Switzerland,Tout l'univers,4,123.466,A minor,A,minor,0.534,0.365,9,-9.187,0,0.033,0.81,2.52e-6,0.158,0.237,73
+Stefania,Greece,Last Dance,4,146.869,D minor,D,minor,0.533,0.91,2,-4.526,0,0.0435,0.0213,0,0.0699,0.393,68
+James Newman,United Kingdom,Embers,4,125.968,F# major,F#,major,0.678,0.819,6,-4.646,1,0.0577,0.00283,2.67e-6,0.112,0.722,68
+Efendi,Azerbaijan,Mata Hari,4,99.942,E minor,E,minor,0.706,0.675,4,-5.756,0,0.0386,0.0128,3.55e-4,0.263,0.463,71
+Go_A,Lithuania,SHUM,4,116.431,E major,E,major,0.527,0.737,4,-5.34,1,0.0642,0.05,7.85e-5,0.105,0.499,73
+Manizha,Russia,RUSSIAN WOMAN,4,102.001,E minor,E,minor,0.89,0.701,4,-7.061,0,0.194,0.204,0,0.0741,0.652,70
+Natalia Gordienko,Moldova,Sugar,4,119.987,B minor,B,minor,0.694,0.76,11,-7.216,0,0.0464,0.00495,0.00566,0.134,0.511,65
+Hurricane,Serbia,Loco Loco,4,104.99,D minor,D,minor,0.655,0.747,2,-10.73,0,0.0841,0.294,0,0.243,0.594,45
+VICTORIA,Bulgaria,growing up is getting old - Eurovision Version,4,94.112,G major,G,major,0.413,0.193,7,-7.94,1,0.0296,0.796,1.09e-6,0.095,0.312,63
+Hooverphonic,Belgium,The Wrong Place,4,80.239,F major,F,major,0.491,0.728,5,-4.482,1,0.0428,0.0479,1.38e-6,0.16,0.246,67
+Blas Cantó,Spain,Voy a quedarme,4,75.986,D# major,D#,major,0.517,0.72,3,-5.197,1,0.0488,0.214,0,0.0839,0.355,64
+TIX,Norway,Fallen Angel,4,92.999,C# major,C#,major,0.542,0.647,1,-4.973,1,0.0277,0.071,0,0.108,0.281,72
+Blind Channel,Finland,Dark Side,4,98.01,G major,G,major,0.571,0.955,7,-3.795,1,0.105,0.00254,1.55e-6,0.274,0.437,72
+Anxhela Peristeri,Albania,Karma,4,149.987,G minor,G,minor,0.515,0.627,7,-10.083,0,0.0448,0.00371,0,0.127,0.192,62
+Jeangu Macrooy,The Netherlands,Birth Of A New Age,4,95.039,C minor,C,minor,0.718,0.718,0,-4.969,0,0.0609,0.479,8.8e-6,0.234,0.539,67
+Jendrik,Germany,I Don't Feel Hate,4,113.889,F minor,F,minor,0.827,0.837,5,-5.322,0,0.214,0.19,9.72e-6,0.0346,0.752,65
+The Black Mamba,Portugal,Love Is On My Side,4,66.355,E major,E,major,0.285,0.419,4,-7.243,1,0.0286,0.338,3.26e-6,0.197,0.244,63
+Albina,Croata,Tick-Tock,4,125.979,E minor,E,minor,0.765,0.758,4,-5.432,0,0.0352,0.0503,6.8e-4,0.343,0.76,65
+Montaigne,Australia,Technicolour,4,118.965,A minor,A,minor,0.665,0.567,9,-5.662,0,0.0338,0.0656,0,0.269,0.274,65
+Lesley Roy,Ireland,Maps,4,143.002,G major,G,major,0.543,0.833,7,-6.987,1,0.0416,0.0212,0,0.36,0.547,64
+Roxen,Romania,Amnesia,4,119.626,A# minor,A#,minor,0.582,0.693,10,-5.522,0,0.135,0.125,1.38e-6,0.158,0.245,66
+Uku Suviste,Estonia,The lucky one,4,175.719,G# minor,G#,minor,0.403,0.639,8,-9.174,0,0.0739,0.0386,0,0.0918,0.409,61
+Benny Cristo,Czech Republic,Omaga,4,122.012,F# major,F#,major,0.717,0.872,6,-5.647,1,0.033,0.109,0.00156,0.344,0.886,62
+Rafal,Poland,The Ride,4,131.946,B minor,B,minor,0.69,0.771,11,-7.064,0,0.0262,0.403,0,0.25,0.926,60
+Fyr Og Flamme,Denmark,Øve Os På Hinanden,4,124.001,C major,C,major,0.678,0.867,0,-5.85,1,0.0268,0.0128,3.19e-5,0.344,0.961,65
+Samanta Tina,Latvia,The Moon Is Rising - Original,4,150.06,A# minor,A#,minor,0.656,0.628,10,-7.617,0,0.144,0.0387,0,0.142,0.331,61
+Ana Soklič,Slovenia,Amen,4,80.56,G# minor,G#,minor,0.448,0.397,8,-10.007,0,0.0478,0.476,2.72e-4,0.149,0.206,59
+Vincent Bueno,Austria,Amen,4,79.662,C# major,C#,major,0.442,0.384,1,-10.223,1,0.0397,0.0102,6.51e-5,0.0831,0.0843,59
+Tornike Kipiani,Georgia,You,3,133.871,C major,C,major,0.497,0.367,0,-7.782,1,0.0245,0.238,0.0432,0.189,0.12,58
+Vasil Garvanliev,North Macedonia,Here I Stand,4,137.77,G major,G,major,0.322,0.195,7,-11.396,1,0.0365,0.512,0,0.318,0.133,58
